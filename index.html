@@ -2,45 +2,219 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="description" content="Dr. Hammad Physio — physiotherapy, appointments and online consultations. Site launching soon." />
+<meta name="theme-color" id="themeColor" content="#05070a" />
 <title>Dr. Hammad Physio — Coming Soon</title>
 
+<!-- Apply the saved theme BEFORE first paint to avoid a flash -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('dhp-theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    } catch (e) {}
+  })();
+</script>
+
 <style>
-  /* ---------- Design tokens ---------- */
+  /* =========================================================
+     1. DESIGN TOKENS — DARK (default)
+     ========================================================= */
   :root {
-    --bg:            #05070a;
-    --panel:         rgba(255, 255, 255, 0.035);
-    --line:          rgba(255, 255, 255, 0.09);
-    --text:          #e8eef5;
-    --muted:         #8fa0b3;
-    --accent:        #34d399;
-    --accent-2:      #38bdf8;
-    --radius:        24px;
-    --ease:          cubic-bezier(0.22, 1, 0.36, 1);
+    color-scheme: dark;
+
+    --bg:              #05070a;
+    --panel:           rgba(255, 255, 255, 0.035);
+    --line:            rgba(255, 255, 255, 0.09);
+    --text:            #e8eef5;
+    --muted:           #8fa0b3;
+
+    --accent:          #34d399;
+    --accent-2:        #38bdf8;
+    --accent-soft:     rgba(52, 211, 153, 0.18);
+    --accent-2-soft:   rgba(56, 189, 248, 0.13);
+
+    --card-bg:         rgba(255, 255, 255, 0.025);
+    --card-bg-hover:   rgba(52, 211, 153, 0.06);
+    --card-line-hover: rgba(52, 211, 153, 0.42);
+    --card-glow:       rgba(52, 211, 153, 0.55);
+
+    --badge-bg:        rgba(255, 255, 255, 0.04);
+    --grid-line:       rgba(255, 255, 255, 0.05);
+    --orb-opacity:     0.5;
+    --orb-1:           #10b981;
+    --orb-2:           #0ea5e9;
+    --orb-3:           #14b8a6;
+
+    --panel-shadow:    0 30px 80px -30px rgba(0, 0, 0, 0.9),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    --grad-1:          #6ee7b7;
+    --grad-2:          #34d399;
+    --grad-3:          #38bdf8;
+
+    --tag-color:       #ff8f8f;
+    --tag-bg:          rgba(255, 80, 80, 0.10);
+    --tag-line:        rgba(255, 80, 80, 0.28);
+
+    --icon-color:      #34d399;
+    --icon-color-hover:#7df3c4;
+
+    --footer:          rgba(143, 160, 179, 0.62);
+
+    --toggle-bg:       rgba(255, 255, 255, 0.05);
+    --toggle-line:     rgba(255, 255, 255, 0.12);
+    --toggle-color:    #cfe0ee;
+
+    --selection:       rgba(52, 211, 153, 0.3);
+
+    --ease:            cubic-bezier(0.22, 1, 0.36, 1);
+    --radius:          24px;
   }
 
+  /* =========================================================
+     2. LIGHT TOKENS — auto (follows the OS)
+     ========================================================= */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      color-scheme: light;
+
+      --bg:              #eef2f7;
+      --panel:           rgba(255, 255, 255, 0.72);
+      --line:            rgba(15, 23, 42, 0.10);
+      --text:            #0b1220;
+      --muted:           #56657a;
+
+      --accent:          #059669;
+      --accent-2:        #0284c7;
+      --accent-soft:     rgba(5, 150, 105, 0.14);
+      --accent-2-soft:   rgba(2, 132, 199, 0.10);
+
+      --card-bg:         rgba(255, 255, 255, 0.62);
+      --card-bg-hover:   rgba(5, 150, 105, 0.06);
+      --card-line-hover: rgba(5, 150, 105, 0.35);
+      --card-glow:       rgba(5, 150, 105, 0.22);
+
+      --badge-bg:        rgba(255, 255, 255, 0.70);
+      --grid-line:       rgba(15, 23, 42, 0.055);
+      --orb-opacity:     0.34;
+      --orb-1:           #6ee7b7;
+      --orb-2:           #7dd3fc;
+      --orb-3:           #5eead4;
+
+      --panel-shadow:    0 30px 70px -34px rgba(15, 23, 42, 0.28),
+                         inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+      --grad-1:          #0f9d76;
+      --grad-2:          #059669;
+      --grad-3:          #0284c7;
+
+      --tag-color:       #b91c1c;
+      --tag-bg:          rgba(220, 38, 38, 0.09);
+      --tag-line:        rgba(220, 38, 38, 0.22);
+
+      --icon-color:      #059669;
+      --icon-color-hover:#047857;
+
+      --footer:          rgba(86, 101, 122, 0.78);
+
+      --toggle-bg:       rgba(255, 255, 255, 0.75);
+      --toggle-line:     rgba(15, 23, 42, 0.12);
+      --toggle-color:    #334155;
+
+      --selection:       rgba(5, 150, 105, 0.22);
+    }
+  }
+
+  /* =========================================================
+     3. LIGHT TOKENS — forced by the toggle
+        (must mirror block 2)
+     ========================================================= */
+  :root[data-theme="light"] {
+    color-scheme: light;
+
+    --bg:              #eef2f7;
+    --panel:           rgba(255, 255, 255, 0.72);
+    --line:            rgba(15, 23, 42, 0.10);
+    --text:            #0b1220;
+    --muted:           #56657a;
+
+    --accent:          #059669;
+    --accent-2:        #0284c7;
+    --accent-soft:     rgba(5, 150, 105, 0.14);
+    --accent-2-soft:   rgba(2, 132, 199, 0.10);
+
+    --card-bg:         rgba(255, 255, 255, 0.62);
+    --card-bg-hover:   rgba(5, 150, 105, 0.06);
+    --card-line-hover: rgba(5, 150, 105, 0.35);
+    --card-glow:       rgba(5, 150, 105, 0.22);
+
+    --badge-bg:        rgba(255, 255, 255, 0.70);
+    --grid-line:       rgba(15, 23, 42, 0.055);
+    --orb-opacity:     0.34;
+    --orb-1:           #6ee7b7;
+    --orb-2:           #7dd3fc;
+    --orb-3:           #5eead4;
+
+    --panel-shadow:    0 30px 70px -34px rgba(15, 23, 42, 0.28),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+    --grad-1:          #0f9d76;
+    --grad-2:          #059669;
+    --grad-3:          #0284c7;
+
+    --tag-color:       #b91c1c;
+    --tag-bg:          rgba(220, 38, 38, 0.09);
+    --tag-line:        rgba(220, 38, 38, 0.22);
+
+    --icon-color:      #059669;
+    --icon-color-hover:#047857;
+
+    --footer:          rgba(86, 101, 122, 0.78);
+
+    --toggle-bg:       rgba(255, 255, 255, 0.75);
+    --toggle-line:     rgba(15, 23, 42, 0.12);
+    --toggle-color:    #334155;
+
+    --selection:       rgba(5, 150, 105, 0.22);
+  }
+
+  /* =========================================================
+     4. BASE
+     ========================================================= */
   *, *::before, *::after { box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
   body {
     margin: 0;
     min-height: 100dvh;
     display: grid;
     place-items: center;
-    padding: clamp(24px, 6vw, 72px) clamp(16px, 5vw, 40px);
-    background: var(--bg);
+    padding:
+      clamp(56px, 8vw, 88px)
+      clamp(14px, 5vw, 40px)
+      calc(clamp(28px, 6vw, 72px) + env(safe-area-inset-bottom));
+    background-color: var(--bg);
     color: var(--text);
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     position: relative;
+    transition: background-color .5s var(--ease), color .5s var(--ease);
   }
 
-  ::selection { background: rgba(52, 211, 153, 0.3); color: #fff; }
+  ::selection { background: var(--selection); color: inherit; }
 
-  /* ---------- Animated background ---------- */
+  /* =========================================================
+     5. ANIMATED BACKGROUND
+     ========================================================= */
   .bg {
     position: fixed;
     inset: 0;
@@ -53,26 +227,27 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(90px);
-    opacity: 0.5;
+    opacity: var(--orb-opacity);
     will-change: transform;
+    transition: opacity .6s var(--ease);
   }
 
   .orb--1 {
     width: 46vmax; height: 46vmax;
     top: -14vmax; left: -12vmax;
-    background: radial-gradient(circle at 35% 35%, #10b981, transparent 70%);
+    background: radial-gradient(circle at 35% 35%, var(--orb-1), transparent 70%);
     animation: drift 18s ease-in-out infinite;
   }
   .orb--2 {
     width: 42vmax; height: 42vmax;
     top: 8vmax; right: -14vmax;
-    background: radial-gradient(circle at 60% 40%, #0ea5e9, transparent 70%);
+    background: radial-gradient(circle at 60% 40%, var(--orb-2), transparent 70%);
     animation: drift 24s ease-in-out infinite reverse;
   }
   .orb--3 {
     width: 40vmax; height: 40vmax;
     bottom: -20vmax; left: 32%;
-    background: radial-gradient(circle at 50% 50%, #14b8a6, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, var(--orb-3), transparent 70%);
     animation: drift 30s ease-in-out infinite;
   }
 
@@ -82,20 +257,85 @@
     66%      { transform: translate3d(-3vmax, 4vmax, 0) scale(0.94); }
   }
 
-  /* faint technical grid with a soft vignette mask */
   .bg::after {
     content: "";
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 64px 64px;
     -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 8%, transparent 72%);
             mask-image: radial-gradient(ellipse at 50% 45%, #000 8%, transparent 72%);
   }
 
-  /* ---------- Layout shell ---------- */
+  /* =========================================================
+     6. THEME TOGGLE
+     ========================================================= */
+  .theme-toggle {
+    position: fixed;
+    top: max(clamp(14px, 2.5vw, 24px), env(safe-area-inset-top));
+    right: max(clamp(14px, 2.5vw, 24px), env(safe-area-inset-right));
+    z-index: 10;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--toggle-line);
+    background: var(--toggle-bg);
+    color: var(--toggle-color);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: 0 10px 26px -14px rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform .3s var(--ease),
+      background-color .4s var(--ease),
+      border-color .4s var(--ease),
+      color .4s var(--ease),
+      box-shadow .4s var(--ease);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-2px);
+    border-color: var(--card-line-hover);
+    box-shadow: 0 16px 30px -16px var(--card-glow);
+  }
+  .theme-toggle:active { transform: scale(.94); }
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .theme-toggle__icons { display: grid; place-items: center; }
+
+  .theme-toggle .ico {
+    grid-area: 1 / 1;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transform: scale(.5) rotate(-90deg);
+    transition: opacity .3s var(--ease), transform .45s var(--ease);
+  }
+
+  html:not([data-theme])          .ico--auto,
+  html[data-theme="light"]        .ico--light,
+  html[data-theme="dark"]         .ico--dark {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* =========================================================
+     7. LAYOUT
+     ========================================================= */
   .shell {
     position: relative;
     z-index: 1;
@@ -104,7 +344,7 @@
     text-align: center;
   }
 
-  /* ---------- Hero ---------- */
+  /* ---- Hero ---- */
   .badge {
     display: inline-flex;
     align-items: center;
@@ -112,7 +352,7 @@
     padding: 8px 16px;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--badge-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     font-size: 0.72rem;
@@ -121,6 +361,10 @@
     text-transform: uppercase;
     color: var(--muted);
     animation: fadeUp 0.8s var(--ease) backwards;
+    transition:
+      background-color .5s var(--ease),
+      border-color .5s var(--ease),
+      color .5s var(--ease);
   }
 
   .dot {
@@ -132,22 +376,25 @@
   }
 
   @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
-    70%  { box-shadow: 0 0 0 11px rgba(52, 211, 153, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    0%   { box-shadow: 0 0 0 0 var(--card-glow); }
+    70%  { box-shadow: 0 0 0 11px rgba(0, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
   }
 
   h1 {
     margin: clamp(20px, 4vw, 30px) 0 0;
-    font-size: clamp(2rem, 6.2vw, 3.6rem);
+    font-size: clamp(1.9rem, 6.2vw, 3.6rem);
     line-height: 1.08;
     letter-spacing: -0.03em;
     font-weight: 700;
+    color: var(--text);
+    text-wrap: balance;
     animation: fadeUp 0.8s var(--ease) 0.08s backwards;
+    transition: color .5s var(--ease);
   }
 
   .grad {
-    background: linear-gradient(100deg, #6ee7b7 0%, #34d399 40%, #38bdf8 100%);
+    background-image: linear-gradient(100deg, var(--grad-1) 0%, var(--grad-2) 40%, var(--grad-3) 100%);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
@@ -160,28 +407,31 @@
     font-size: clamp(0.95rem, 2vw, 1.05rem);
     line-height: 1.7;
     color: var(--muted);
+    text-wrap: pretty;
     animation: fadeUp 0.8s var(--ease) 0.16s backwards;
+    transition: color .5s var(--ease);
   }
 
-  /* ---------- Notice panel ---------- */
+  /* ---- Notice panel ---- */
   .panel {
     position: relative;
     margin-top: clamp(34px, 6vw, 56px);
-    padding: clamp(24px, 4.5vw, 40px);
+    padding: clamp(22px, 4.5vw, 40px);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--panel);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
-    box-shadow:
-      0 30px 80px -30px rgba(0, 0, 0, 0.9),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: var(--panel-shadow);
     overflow: hidden;
     text-align: left;
     animation: fadeUp 0.9s var(--ease) 0.26s backwards;
+    transition:
+      background-color .5s var(--ease),
+      border-color .5s var(--ease),
+      box-shadow .5s var(--ease);
   }
 
-  /* animated light sweep along the top edge */
   .panel::before {
     content: "";
     position: absolute;
@@ -189,8 +439,8 @@
     height: 1px;
     background: linear-gradient(90deg,
       transparent,
-      rgba(52, 211, 153, 0.9),
-      rgba(56, 189, 248, 0.9),
+      var(--accent),
+      var(--accent-2),
       transparent);
     background-size: 220% 100%;
     animation: sweep 5s linear infinite;
@@ -206,11 +456,12 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
-    margin: 0 0 clamp(20px, 3.5vw, 28px);
-    font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+    margin: 0 0 clamp(18px, 3.5vw, 28px);
+    font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     font-weight: 600;
     letter-spacing: 0.01em;
     color: var(--text);
+    transition: color .5s var(--ease);
   }
 
   .tag {
@@ -220,15 +471,19 @@
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #ff8080;
-    background: rgba(255, 80, 80, 0.1);
-    border: 1px solid rgba(255, 80, 80, 0.28);
+    color: var(--tag-color);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-line);
+    transition:
+      color .5s var(--ease),
+      background-color .5s var(--ease),
+      border-color .5s var(--ease);
   }
 
-  /* ---------- Feature cards ---------- */
+  /* ---- Feature cards ---- */
   .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
     gap: 14px;
     margin: 0;
     padding: 0;
@@ -240,21 +495,22 @@
     padding: 22px 20px;
     border: 1px solid var(--line);
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.025);
-    transition: transform 0.45s var(--ease),
-                border-color 0.45s var(--ease),
-                background 0.45s var(--ease),
-                box-shadow 0.45s var(--ease);
+    background: var(--card-bg);
     animation: fadeUp 0.75s var(--ease) backwards;
     animation-delay: calc(0.42s + var(--i) * 0.11s);
+    transition:
+      transform .45s var(--ease),
+      background-color .45s var(--ease),
+      border-color .45s var(--ease),
+      box-shadow .45s var(--ease);
   }
 
   .feature:hover,
   .feature:focus-within {
     transform: translateY(-5px);
-    border-color: rgba(52, 211, 153, 0.4);
-    background: rgba(52, 211, 153, 0.055);
-    box-shadow: 0 22px 45px -25px rgba(52, 211, 153, 0.6);
+    border-color: var(--card-line-hover);
+    background: var(--card-bg-hover);
+    box-shadow: 0 22px 45px -25px var(--card-glow);
   }
 
   .feature__icon {
@@ -264,17 +520,20 @@
     height: 44px;
     margin-bottom: 16px;
     border-radius: 13px;
-    color: var(--accent);
-    background: linear-gradient(140deg,
-      rgba(52, 211, 153, 0.18),
-      rgba(56, 189, 248, 0.13));
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: transform 0.45s var(--ease), color 0.45s var(--ease);
+    color: var(--icon-color);
+    background: linear-gradient(140deg, var(--accent-soft), var(--accent-2-soft));
+    border: 1px solid var(--line);
+    transition:
+      transform .45s var(--ease),
+      color .45s var(--ease),
+      background-color .45s var(--ease),
+      border-color .45s var(--ease);
   }
 
-  .feature:hover .feature__icon {
+  .feature:hover .feature__icon,
+  .feature:focus-within .feature__icon {
     transform: scale(1.08) rotate(-4deg);
-    color: #7df3c4;
+    color: var(--icon-color-hover);
   }
 
   .feature__icon svg {
@@ -293,6 +552,7 @@
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--text);
+    transition: color .45s var(--ease);
   }
 
   .feature p {
@@ -300,24 +560,83 @@
     font-size: 0.84rem;
     line-height: 1.65;
     color: var(--muted);
+    transition: color .45s var(--ease);
   }
 
-  /* ---------- Footer ---------- */
+  /* ---- Footer ---- */
   .footer {
     margin-top: clamp(26px, 4vw, 38px);
     font-size: 0.76rem;
     letter-spacing: 0.06em;
-    color: rgba(143, 160, 179, 0.62);
+    color: var(--footer);
     animation: fadeUp 0.9s var(--ease) 0.85s backwards;
+    transition: color .5s var(--ease);
   }
 
-  /* ---------- Shared animation ---------- */
+  /* =========================================================
+     8. SHARED ANIMATION
+     ========================================================= */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---------- Accessibility ---------- */
+  /* =========================================================
+     9. ADAPTIVE BREAKPOINTS
+     ========================================================= */
+  /* Large desktops */
+  @media (min-width: 1200px) {
+    .shell { max-width: 920px; }
+    .features { gap: 16px; }
+  }
+
+  /* Tablets */
+  @media (max-width: 820px) {
+    .shell { max-width: 640px; }
+  }
+
+  /* Large phones */
+  @media (max-width: 560px) {
+    body { padding-left: clamp(12px, 4vw, 20px); padding-right: clamp(12px, 4vw, 20px); }
+    .panel { padding: 22px 18px; border-radius: 20px; }
+    .feature { padding: 18px 16px; }
+    .feature__icon { width: 40px; height: 40px; margin-bottom: 13px; border-radius: 12px; }
+    .theme-toggle { width: 42px; height: 42px; }
+    .theme-toggle .ico { width: 18px; height: 18px; }
+  }
+
+  /* Small phones */
+  @media (max-width: 390px) {
+    h1 { font-size: 1.72rem; }
+    .badge { font-size: 0.64rem; padding: 7px 13px; letter-spacing: 0.12em; }
+    .features { gap: 10px; }
+    .feature { padding: 16px 14px; }
+    .feature h3 { font-size: 0.92rem; }
+    .feature p { font-size: 0.79rem; }
+    .footer { font-size: 0.7rem; }
+  }
+
+  /* Very narrow / foldables */
+  @media (max-width: 320px) {
+    h1 { font-size: 1.5rem; }
+    .panel { padding: 18px 14px; }
+    .panel__title { gap: 8px; }
+  }
+
+  /* Short landscape screens */
+  @media (max-height: 620px) and (orientation: landscape) {
+    body {
+      align-items: start;
+      padding-top: 64px;
+      padding-bottom: 32px;
+    }
+    .panel { margin-top: 24px; }
+    .orb { filter: blur(70px); }
+  }
+
+  /* =========================================================
+     10. ACCESSIBILITY
+     ========================================================= */
   a:focus-visible,
   .feature:focus-visible {
     outline: 2px solid var(--accent);
@@ -329,13 +648,9 @@
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
     }
     .orb { animation: none !important; }
-  }
-
-  @media (max-width: 520px) {
-    .feature { padding: 20px 18px; }
-    .panel__title { font-size: 0.9rem; }
   }
 </style>
 </head>
@@ -348,6 +663,26 @@
     <span class="orb orb--2"></span>
     <span class="orb orb--3"></span>
   </div>
+
+  <!-- Theme switcher: auto → light → dark -->
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Theme: auto. Activate to switch.">
+    <span class="theme-toggle__icons" aria-hidden="true">
+      <!-- Auto (follow system) -->
+      <svg class="ico ico--auto" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+      </svg>
+      <!-- Light -->
+      <svg class="ico ico--light" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4.4" />
+        <path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+      </svg>
+      <!-- Dark -->
+      <svg class="ico ico--dark" viewBox="0 0 24 24">
+        <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z" />
+      </svg>
+    </span>
+  </button>
 
   <main class="shell">
 
@@ -411,6 +746,76 @@
     <p class="footer">© Dr. Hammad Physio · Physiotherapy &amp; Rehabilitation</p>
 
   </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root   = document.documentElement;
+      var button = document.getElementById("themeToggle");
+      var meta   = document.getElementById("themeColor");
+      var media  = window.matchMedia("(prefers-color-scheme: light)");
+
+      /* Cycle order for the button */
+      var ORDER = ["auto", "light", "dark"];
+
+      /* Browser chrome colour per resolved theme */
+      var META_COLOR = { light: "#eef2f7", dark: "#05070a" };
+
+      /* No attribute = auto, so the OS decides */
+      function getTheme() {
+        var t = root.getAttribute("data-theme");
+        return (t === "light" || t === "dark") ? t : "auto";
+      }
+
+      function resolve(theme) {
+        if (theme === "light" || theme === "dark") return theme;
+        return media.matches ? "light" : "dark";
+      }
+
+      function syncMeta() {
+        meta.setAttribute("content", META_COLOR[resolve(getTheme())]);
+      }
+
+      function apply(theme) {
+        if (theme === "auto") {
+          root.removeAttribute("data-theme");
+        } else {
+          root.setAttribute("data-theme", theme);
+        }
+
+        button.setAttribute(
+          "aria-label",
+          "Theme: " + theme + ". Activate to switch."
+        );
+        button.setAttribute("title", "Theme: " + theme);
+
+        syncMeta();
+
+        try { localStorage.setItem("dhp-theme", theme); } catch (e) {}
+      }
+
+      /* Click cycles: auto → light → dark → auto */
+      button.addEventListener("click", function () {
+        var next = ORDER[(ORDER.indexOf(getTheme()) + 1) % ORDER.length];
+        apply(next);
+      });
+
+      /* Keep browser chrome in sync when the OS theme changes in auto mode */
+      if (media.addEventListener) {
+        media.addEventListener("change", function () {
+          if (getTheme() === "auto") syncMeta();
+        });
+      } else if (media.addListener) {
+        media.addListener(function () {
+          if (getTheme() === "auto") syncMeta();
+        });
+      }
+
+      /* Initialise */
+      apply(getTheme());
+    })();
+  </script>
 
 </body>
 </html>
